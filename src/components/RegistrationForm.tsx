@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User, Mail, Phone, MapPin, Monitor, Users, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 import { RegistrationDetails } from '../types';
 import ProgressStepper from './ProgressStepper';
+import { submitToSpreadsheet } from '../lib/sheets';
 
 interface RegistrationFormProps {
   onSuccess: (ticket: { id: string; details: RegistrationDetails; date: string }) => void;
@@ -63,19 +64,10 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
       existing.push({ id: ticketId, ...detailsPayload });
       localStorage.setItem("vibe_registrations", JSON.stringify(existing));
 
-      // 2. Dispatch quietly in the background if a submission endpoint exists (zero user config shown)
+      // 2. Dispatch immediately to the spreadsheet
       const silentUrl = localStorage.getItem("vibe_appscript_url") || (import.meta as any).env?.VITE_APPSCRIPT_URL || "";
       if (silentUrl && !silentUrl.includes("placeholder")) {
-        await fetch('/api/register-external', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            appsScriptUrl: silentUrl,
-            details: { id: ticketId, ...detailsPayload }
-          })
-        }).catch(err => console.warn("Quiet sync failed:", err));
+        await submitToSpreadsheet(silentUrl, { id: ticketId, ...detailsPayload });
       }
 
       // Triggers state switch to SuccessPage

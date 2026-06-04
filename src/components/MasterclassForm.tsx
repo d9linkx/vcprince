@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { RegistrationDetails } from '../types';
 import ProgressStepper from './ProgressStepper';
+import { submitToSpreadsheet } from '../lib/sheets';
 
 interface MasterclassFormProps {
   onSuccess: (ticket: { id: string; details: RegistrationDetails & { projectIdea?: string }; date: string }) => void;
@@ -84,19 +85,10 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
       existing.push({ id: ticketId, ...detailsPayload, isMasterclass: true });
       localStorage.setItem("vibe_registrations", JSON.stringify(existing));
 
-      // 2. Dispatch quietly to Apps Script endpoint if configured
+      // 2. Dispatch immediately to Google Sheets
       const silentUrl = localStorage.getItem("vibe_masterclass_url") || (import.meta as any).env?.VITE_APPSCRIPT_URL || "";
       if (silentUrl && !silentUrl.includes("placeholder")) {
-        await fetch('/api/register-external', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            appsScriptUrl: silentUrl,
-            details: { id: ticketId, ...detailsPayload }
-          })
-        }).catch(err => console.warn("Quiet sync failed:", err));
+        await submitToSpreadsheet(silentUrl, { id: ticketId, ...detailsPayload });
       }
 
       onSuccess({
