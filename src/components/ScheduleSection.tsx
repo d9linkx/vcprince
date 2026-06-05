@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Monitor, Users, Check, Compass, Clock, FolderKanban, Linkedin, ExternalLink } from 'lucide-react';
+import { Calendar, Monitor, Users, Check, Compass, Clock, FolderKanban, Linkedin, ExternalLink, Terminal } from 'lucide-react';
 import {
   getFridayDate,
   getSaturdayDate,
@@ -236,12 +236,10 @@ export default function ScheduleSection() {
         <div className="mt-20 max-w-4xl mx-auto border border-zinc-200 bg-zinc-50/40 rounded-3xl p-6 sm:p-10 flex flex-col md:flex-row items-center gap-8 shadow-[0_4px_24px_rgba(0,0,0,0.01)]">
           <div className="relative shrink-0">
             {/* Soft avatar initial frame with premium gradients */}
-            <img 
-              src="/src/assets/images/prince_dike_profile_1780643197604.png" 
-              alt="Prince Dike - Lead Mentor" 
-              className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl object-cover border border-white shadow-md"
-              referrerPolicy="no-referrer"
-            />
+            {/* Abstract tech school mentor logo / identifier */}
+            <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl bg-zinc-950 border border-zinc-800 shadow-md flex items-center justify-center text-emerald-450 relative">
+              <Terminal className="h-8 w-8 sm:h-10 sm:w-10 text-emerald-500" />
+            </div>
             <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-[10px] font-black" title="Verified Cohort Director">
               ✓
             </div>

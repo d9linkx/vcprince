@@ -164,7 +164,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
             </div>
 
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-zinc-950 leading-[1.15] font-display">
-              Build Real Apps & Games Just by <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Talking to AI</span>
+              Build real apps & games in a few minutes <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">just by talking to AI</span>
             </h1>
 
             <p className="max-w-xl text-xs lg:text-sm text-zinc-500 leading-relaxed font-sans font-light">

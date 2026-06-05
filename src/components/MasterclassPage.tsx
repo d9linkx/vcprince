@@ -17,7 +17,8 @@ import {
   MessageSquareOff, 
   Smartphone, 
   Laptop, 
-  Layers 
+  Layers,
+  Terminal 
 } from 'lucide-react';
 
 interface MasterclassPageProps {
@@ -821,12 +822,10 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
           className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 flex flex-col md:flex-row items-center gap-8 shadow-sm"
         >
           <div className="relative shrink-0">
-            <img 
-              src="/src/assets/images/prince_dike_profile_1780643197604.png" 
-              alt="Prince Dike - Lead Instructor" 
-              className="h-24 w-24 sm:h-28 sm:w-28 rounded-2xl object-cover border border-zinc-100 shadow-sm"
-              referrerPolicy="no-referrer"
-            />
+            {/* Abstract tech school mentor logo / identifier */}
+            <div className="h-24 w-24 sm:h-28 sm:w-28 rounded-2xl bg-zinc-950 border border-zinc-800 shadow-md flex items-center justify-center text-emerald-450 relative">
+              <Terminal className="h-10 w-10 sm:h-12 sm:w-12 text-emerald-500" />
+            </div>
             <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-[10px] font-black">
               ✓
             </div>

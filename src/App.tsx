@@ -61,8 +61,12 @@ export default function App() {
             }}
             className="flex items-center gap-2.5 text-left bg-transparent border-none cursor-pointer p-0 select-none outline-none"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 shadow-sm shrink-0 overflow-hidden">
-              <img src="/src/assets/images/logo.png" alt="VibeCode Logo" className="h-full w-full object-cover" referrerPolicy="no-referrer" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 shadow-sm shrink-0">
+              <svg viewBox="0 0 24 24" className="h-5.5 w-5.5 text-emerald-500 fill-none stroke-current stroke-[2]" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+                <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" className="opacity-20" />
+              </svg>
             </div>
             <div>
               <span className="text-sm font-extrabold tracking-tight text-zinc-900 font-sans block">VibeCode with Prince</span>
