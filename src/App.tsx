@@ -6,7 +6,13 @@ import RegistrationForm from './components/RegistrationForm';
 import SuccessPage from './components/SuccessPage';
 import MasterclassPage from './components/MasterclassPage';
 import MasterclassForm from './components/MasterclassForm';
-import { Terminal, Shield, Activity, Star } from 'lucide-react';
+import NotForSection from './components/NotForSection';
+import { 
+  Terminal, 
+  Shield, 
+  Activity, 
+  Star 
+} from 'lucide-react';
 import { RegistrationDetails } from './types';
 import { getCohortMonthYearString } from './lib/dates';
 
@@ -146,6 +152,9 @@ export default function App() {
 
             {/* Section 2: Path Schedules Selection (Virtual vs Physical) */}
             <ScheduleSection />
+
+            {/* Who This Is NOT For Section */}
+            <NotForSection />
 
             {/* Section 3: Public Mastermind Forums & FAQs list */}
             <CommunitySection />

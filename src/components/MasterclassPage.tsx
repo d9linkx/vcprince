@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import NotForSection from './NotForSection';
 import { 
   ArrowLeft, 
   Sparkles, 
@@ -536,6 +537,8 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
             referrerPolicy="no-referrer"
           />
         </div>
+
+        <NotForSection />
 
         {/* Section: What You'll Learn (Days Curriculum) */}
         <section className="bg-white border border-zinc-200 rounded-3xl p-8 sm:p-12 space-y-8 shadow-[0_4px_24px_rgba(0,0,0,0.01)]">
