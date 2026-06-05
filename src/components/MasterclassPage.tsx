@@ -63,21 +63,23 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
         </div>
       </div>
 
-      {/* Redesigned Centered Hero Section matching Introductory Page approach exactly */}
-      <section id="masterclass-hero" className="relative overflow-hidden bg-white pt-5 pb-12 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20 border-b border-zinc-100">
+      {/* Redesigned Centered Hero Section as an elegant layout with separate mobile & desktop presentations */}
+      <section id="masterclass-hero" className="relative overflow-hidden bg-white pt-6 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-8 lg:pb-10 border-b border-zinc-100">
         
         {/* Background radial glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-50/40 via-transparent to-transparent pointer-events-none" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-6">
+          
+          {/* Mobile / Tablet Centered View Layout (lg:hidden) */}
+          <div className="lg:hidden text-center max-w-4xl mx-auto space-y-4 sm:space-y-6">
             
             {/* Elegant pill badge */}
             <div className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100/75 px-2.5 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-xs font-semibold text-zinc-800 border border-zinc-200 shadow-[0_1px_2px_rgba(0,0,0,0.01)] select-none">
               <span className="flex h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="text-emerald-800 font-extrabold font-sans">Premium Cohort Mentorship</span>
               <span className="text-zinc-300">|</span>
-              <span className="font-mono text-zinc-600 font-bold">1-on-1 Guidance</span>
+              <span className="font-mono text-zinc-640 font-bold">1-on-1 Guidance</span>
             </div>
 
             {/* Display Typography */}
@@ -86,10 +88,19 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
             </h1>
 
             <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-zinc-500 leading-relaxed font-sans font-light">
-              A few years ago, a teenager named Nick D'Aloisio was sitting with a problem: 
-              He was frustrated by how long it took to read news articles on his phone. 
+              A few years ago, a teenager named Nick D'Aloisio was frustrated by how long it took to read news articles on his phone. 
               So he built a simple app that summarized long articles — and sold it to Yahoo for millions before turning 18!
             </p>
+
+            {/* CTA Button BEFORE Social Proof */}
+            <div className="pt-2 flex items-center justify-center">
+              <button 
+                onClick={onEnrollMasterclass}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-zinc-950 px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white hover:bg-zinc-850 active:scale-95 transition-all cursor-pointer shadow-sm"
+              >
+                <span>Register for Masterclass Sessions &rarr;</span>
+              </button>
+            </div>
 
             {/* Social Proof: Handsomely curated local student avatars */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-2 select-none">
@@ -107,7 +118,7 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
 
             {/* Centered CTA Trigger row */}
             <div className="pt-4 flex items-center justify-center">
-              <div className="flex flex-col text-center bg-zinc-50 border border-zinc-250/80 px-6 py-3 rounded-2xl select-none shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+              <div className="flex flex-col text-center bg-zinc-50 border border-zinc-200 px-6 py-3 rounded-2xl select-none shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
                 <span className="text-[9px] text-zinc-400 font-mono font-bold uppercase tracking-wider">Cohort Package Fee:</span>
                 <div className="flex items-baseline gap-1 mt-0.5 justify-center">
                   <span className="text-2xl font-black text-zinc-900">₦20,000</span>
@@ -116,6 +127,96 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
               </div>
             </div>
 
+          </div>
+
+          {/* Desktop View Layout (hidden lg:grid) */}
+          <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            
+            {/* Left Column: Context Discovery & Branding */}
+            <div className="space-y-4 lg:col-span-7 lg:text-left">
+              
+              {/* Elegant pill badge */}
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100/75 px-3 py-1 text-xs font-semibold text-zinc-805 border border-zinc-200 shadow-[0_1px_2px_rgba(0,0,0,0.01)] select-none">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-emerald-800 font-extrabold font-sans text-[11px]">Premium Cohort Mentorship</span>
+                <span className="text-zinc-300">|</span>
+                <span className="font-mono text-zinc-650 font-bold text-[10px]">1-on-1 Guidance</span>
+              </div>
+
+              {/* Display Typography */}
+              <h1 className="text-2xl lg:text-3xl xl:text-4xl font-extrabold tracking-tight text-zinc-950 leading-[1.15] font-display">
+                What If The Next <br /> <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Big App</span> Came From You?
+              </h1>
+
+              <p className="max-w-xl text-xs lg:text-sm text-zinc-500 leading-relaxed font-sans font-light">
+                A few years ago, a teenager named Nick D'Aloisio was frustrated by how long it took to read news articles on his phone. 
+                So he built a simple app that summarized long articles — and sold it to Yahoo for millions before turning 18!
+              </p>
+
+              {/* CTA Button BEFORE Social Proof */}
+              <div className="pt-1 flex flex-col sm:flex-row items-center justify-start gap-4">
+                <button 
+                  onClick={onEnrollMasterclass}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-zinc-950 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-zinc-850 active:scale-95 transition-all cursor-pointer shadow-sm"
+                >
+                  <span>Register for Masterclass Sessions &rarr;</span>
+                </button>
+              </div>
+
+              {/* Social Proof: Handsomely curated local student avatars */}
+              <div className="flex items-center justify-start gap-2 pt-1 select-none">
+                <div className="flex -space-x-1.5 shrink-0">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100&h=100" alt="Handsome young Nigerian student avatar" className="h-6 w-6 rounded-full border border-white object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100&h=100" alt="Excellent Nigerian developer woman avatar" className="h-6 w-6 rounded-full border border-white object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100" alt="Nigerian tech student avatar" className="h-6 w-6 rounded-full border border-white object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100&h=100" alt="Smart Nigerian tech sister avatar" className="h-6 w-6 rounded-full border border-white object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=100&h=100" alt="Young black developer male avatar" className="h-6 w-6 rounded-full border border-white object-cover" referrerPolicy="no-referrer" />
+                </div>
+                <span className="text-[11px] text-zinc-550 font-semibold font-sans">
+                  Guiding <span className="text-emerald-700 font-extrabold">hundreds of ambitious Nigerians</span> onto the tech builders path!
+                </span>
+              </div>
+
+            </div>
+
+            {/* Right Column: Premium Value Card Stack */}
+            <div className="lg:col-span-5 space-y-4 w-full">
+              
+              <div className="bg-gradient-to-b from-zinc-900 to-zinc-950 text-white border border-zinc-800 rounded-2xl p-4 text-left flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.08)] relative overflow-hidden h-full">
+                <div className="absolute top-0 right-0 bg-emerald-700 text-white text-[7px] tracking-wider uppercase font-mono px-2 py-0.5 font-bold rounded-bl flex items-center gap-1 border-l border-b border-emerald-500 z-10">
+                  <Star className="h-1.5 w-1.5 fill-current text-white animate-pulse" />
+                  <span>Mentorship</span>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="space-y-0.5">
+                    <span className="text-[8px] font-bold tracking-wider text-[#0ea5e9] bg-[#0ea5e9]/10 px-2 py-0.5 rounded uppercase font-mono">OPTION B: MENTORSHIP</span>
+                    <h3 className="text-sm font-bold text-white font-display">1-on-1 Guidance Session</h3>
+                  </div>
+
+                  <div className="bg-zinc-950/80 border border-zinc-850 p-2.5 rounded-xl flex items-baseline gap-1 mt-1 justify-between">
+                    <div>
+                      <span className="text-xl font-black text-emerald-400">₦20,000</span>
+                      <span className="text-[8px] text-zinc-500 font-sans block">full package</span>
+                    </div>
+                    <span className="text-[8px] uppercase tracking-widest text-[#0ea5e9] font-bold">1-Month Mentorship Included</span>
+                  </div>
+
+                  <p className="text-[10.5px] text-zinc-400 leading-snug font-sans font-light">
+                    Get full step-by-step guidance and daily chats with Prince Dike to build the exact website or App idea you have in mind!
+                  </p>
+
+                  <button 
+                    onClick={onEnrollMasterclass}
+                    className="w-full inline-flex items-center justify-center gap-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition-all py-2 shadow-md active:scale-95 cursor-pointer uppercase tracking-wider"
+                  >
+                    <span>Reserve Masterclass Seat</span>
+                    <ChevronRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
@@ -718,7 +819,7 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
         >
           <div className="relative shrink-0">
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200" 
+              src="/src/assets/images/prince_dike_profile_1780643197604.png" 
               alt="Prince Dike - Lead Instructor" 
               className="h-24 w-24 sm:h-28 sm:w-28 rounded-2xl object-cover border border-zinc-100 shadow-sm"
               referrerPolicy="no-referrer"

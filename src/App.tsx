@@ -54,8 +54,8 @@ export default function App() {
             }}
             className="flex items-center gap-2.5 text-left bg-transparent border-none cursor-pointer p-0 select-none outline-none"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 shadow-sm shrink-0">
-              <Terminal className="h-5 w-5 text-emerald-400" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 shadow-sm shrink-0 overflow-hidden">
+              <img src="/src/assets/images/logo.png" alt="VibeCode Logo" className="h-full w-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div>
               <span className="text-sm font-extrabold tracking-tight text-zinc-900 font-sans block">VibeCode with Prince</span>

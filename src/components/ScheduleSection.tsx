@@ -232,7 +232,7 @@ export default function ScheduleSection() {
           <div className="relative shrink-0">
             {/* Soft avatar initial frame with premium gradients */}
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200" 
+              src="/src/assets/images/prince_dike_profile_1780643197604.png" 
               alt="Prince Dike - Lead Mentor" 
               className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl object-cover border border-white shadow-md"
               referrerPolicy="no-referrer"

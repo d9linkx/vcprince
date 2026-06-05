@@ -36,7 +36,7 @@ export default function ProgressStepper({ currentStep }: ProgressStepperProps) {
           const isActive = currentStep === st.index;
           
           return (
-            <div key={st.index} className="flex flex-col items-center relative z-10 w-24">
+            <div key={st.index} className="flex flex-col items-center relative z-10 w-12">
               {/* Stepper Node Circle with simple numbers */}
               <div 
                 className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs font-black transition-all duration-300 ${
@@ -48,13 +48,6 @@ export default function ProgressStepper({ currentStep }: ProgressStepperProps) {
                 }`}
               >
                 {st.index}
-              </div>
-              
-              {/* Simple Step Title Label (No description) */}
-              <div className="mt-2 text-center">
-                <span className={`block text-[11px] font-bold leading-tight uppercase tracking-wider ${isActive ? 'text-zinc-950 font-black' : isCompleted ? 'text-emerald-700' : 'text-zinc-400'}`}>
-                  {st.title}
-                </span>
               </div>
             </div>
           );
