@@ -27,7 +27,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 leading-[1.1] sm:leading-[1.15] font-display">
-            Build Real Apps & Games <br className="hidden sm:inline" /> Just by <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Talking to AI</span>
+            Build real apps & games in a few minutes <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">just by talking to AI</span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-zinc-500 leading-relaxed font-sans font-light">
