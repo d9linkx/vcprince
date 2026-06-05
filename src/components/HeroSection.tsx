@@ -95,7 +95,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
               
               <button 
                 onClick={onEnrollMasterclass}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-700 hover:border-zinc-500 bg-zinc-800/40 hover:bg-zinc-800 text-xs text-zinc-200 hover:text-white font-bold transition-all mt-6 py-3.5 shadow-sm active:scale-95 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl border-2 border-emerald-500 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-950/40 text-xs text-emerald-400 hover:text-white font-extrabold transition-all mt-6 py-3.5 shadow-[0_0_12px_rgba(16,185,129,0.15)] active:scale-95 cursor-pointer"
               >
                 <span>View Masterclass Details</span>
                 <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
@@ -153,7 +153,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Context Discovery & Branding */}
-          <div className="space-y-4 lg:col-span-5 lg:text-left">
+          <div className="space-y-4 lg:col-span-7 lg:text-left">
             
             {/* Elegant pill badge */}
             <div className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100/75 px-3 py-1 text-xs font-semibold text-zinc-805 border border-zinc-200 shadow-[0_1px_2px_rgba(0,0,0,0.01)] select-none">
@@ -164,7 +164,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
             </div>
 
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-zinc-950 leading-[1.15] font-display">
-              Build Real Apps & Games <br /> Just by <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Talking to AI</span>
+              Build Real Apps & Games Just by <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Talking to AI</span>
             </h1>
 
             <p className="max-w-xl text-xs lg:text-sm text-zinc-500 leading-relaxed font-sans font-light">
@@ -186,8 +186,8 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
               </span>
             </div>
 
-            {/* Micro metrics grid - space-efficient 2x2 design */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-zinc-100 pt-4 max-w-xl text-left">
+            {/* Micro metrics grid - arranged horizontally in 4 columns on desktop */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-2 lg:gap-x-1.5 border-t border-zinc-100 pt-4 max-w-xl lg:max-w-none lg:w-full text-left">
               
               <div className="flex items-center gap-2">
                 <div className="rounded-lg bg-emerald-50 p-1 border border-emerald-100 flex items-center justify-center shrink-0">
@@ -233,8 +233,8 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
 
           </div>
 
-          {/* Right Column: Dual Options CTA Side-By-Side (Direct Above-The-Fold entry) */}
-          <div className="lg:col-span-7 grid grid-cols-2 gap-4 w-full">
+          {/* Right Column: Dual Options CTA arranged vertically */}
+          <div className="lg:col-span-5 flex flex-col gap-4 w-full">
             
             {/* Option A Card (₦1,000 Beginner Intro) */}
             <div className="bg-white border border-zinc-200 hover:border-emerald-250 transition-all rounded-2xl p-4 text-left flex flex-col justify-between shadow-[0_2px_12px_rgba(0,0,0,0.01)] relative overflow-hidden h-full">
@@ -283,10 +283,10 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
               
               <button 
                 onClick={onEnrollMasterclass}
-                className="w-full inline-flex items-center justify-center gap-1 rounded-xl border border-zinc-700 hover:border-zinc-500 bg-zinc-800/40 hover:bg-zinc-800 text-xs text-zinc-200 hover:text-white font-semibold transition-all mt-4 py-2 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1 rounded-xl border-2 border-emerald-500 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-950/40 text-xs text-emerald-450 hover:text-white font-extrabold transition-all mt-4 py-2 shadow-[0_0_12px_rgba(16,185,129,0.15)] active:scale-95 cursor-pointer"
               >
                 <span>View Details</span>
-                <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
+                <ArrowRight className="h-3.5 w-3.5 text-emerald-450 font-black" />
               </button>
             </div>
 

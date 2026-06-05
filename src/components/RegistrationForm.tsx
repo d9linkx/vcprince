@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { User, Mail, Phone, MapPin, Monitor, Users, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Monitor, Users, CheckCircle, AlertCircle, ArrowLeft, ChevronDown } from 'lucide-react';
 import { RegistrationDetails } from '../types';
 import ProgressStepper from './ProgressStepper';
 import { submitToSpreadsheet } from '../lib/sheets';
+import {
+  getFridayDate,
+  getSaturdayDate,
+  formatLongDate,
+  formatMediumDate,
+  getCohortRangeString
+} from '../lib/dates';
 
 interface RegistrationFormProps {
   onSuccess: (ticket: { id: string; details: RegistrationDetails; date: string }) => void;
@@ -14,6 +21,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [locationState, setLocationState] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [pathPreference, setPathPreference] = useState<'virtual' | 'physical'>('virtual');
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -59,8 +67,18 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
     };
 
     try {
-      // 1. Persist locally to ensure zero data loss (Local State & LocalStorage)
+      // 1. Prevent repeat registrations of the same email address on this form
       const existing = JSON.parse(localStorage.getItem("vibe_registrations") || "[]");
+      const isAlreadyRegistered = existing.some(
+        (item: any) => item.email?.toLowerCase().trim() === email.toLowerCase().trim() && !item.isMasterclass
+      );
+      if (isAlreadyRegistered) {
+        setSubmitError("You have already registered for this Intro Course using this email address!");
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. Persist locally to ensure zero data loss (Local State & LocalStorage)
       existing.push({ id: ticketId, ...detailsPayload });
       localStorage.setItem("vibe_registrations", JSON.stringify(existing));
 
@@ -74,7 +92,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
       onSuccess({
         id: ticketId,
         details: detailsPayload,
-        date: pathPreference === 'virtual' ? "Saturday, June 13, 2026" : "Sunday, June 14, 2026",
+        date: pathPreference === 'virtual' ? formatLongDate(getFridayDate()) : formatLongDate(getSaturdayDate()),
       });
 
     } catch (err: any) {
@@ -82,7 +100,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
       onSuccess({
         id: ticketId,
         details: detailsPayload,
-        date: pathPreference === 'virtual' ? "Saturday, June 13, 2026" : "Sunday, June 14, 2026",
+        date: pathPreference === 'virtual' ? formatLongDate(getFridayDate()) : formatLongDate(getSaturdayDate()),
       });
     } finally {
       setIsLoading(false);
@@ -126,7 +144,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
             <div className="text-center border-b border-zinc-100 pb-5">
               <h3 className="text-xl sm:text-2xl font-black text-zinc-950 tracking-tight font-display">Secure Your Enrollment Ticket</h3>
               <p className="text-xs text-zinc-500 mt-1 leading-relaxed font-sans font-light">
-                First class session holds on <span className="font-extrabold text-emerald-700">June 13 & 14, 2026</span>. Entry token check: ₦1,000.
+                First class session holds on <span className="font-extrabold text-emerald-700">{getCohortRangeString()}</span>. Entry token check: ₦1,000.
               </p>
             </div>
 
@@ -191,19 +209,51 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
                 <label className="block text-xs font-bold text-zinc-800 uppercase tracking-wide px-0.5 select-none">
                   Your State or Location
                 </label>
-                <div className="relative flex items-center bg-zinc-50/40 hover:bg-zinc-50/90 border border-zinc-200 rounded-xl px-3.5 focus-within:bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-50 transition-all duration-150">
-                  <MapPin className="h-4.5 w-4.5 text-zinc-400 shrink-0" />
-                  <select
-                    value={locationState}
-                    onChange={(e) => setLocationState(e.target.value)}
-                    className="w-full text-xs font-semibold py-3.5 pl-2.5 outline-none bg-transparent font-sans text-zinc-800 cursor-pointer"
-                    required
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full flex items-center justify-between bg-zinc-50/40 hover:bg-zinc-50/90 border border-zinc-200 rounded-xl px-3.5 py-3.5 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-50 transition-all duration-150 cursor-pointer text-left"
                   >
-                    <option value="" disabled>-- Select Your Connection State --</option>
-                    {nigerianStates.map((st) => (
-                      <option key={st} value={st}>{st}</option>
-                    ))}
-                  </select>
+                    <div className="flex items-center gap-2.5">
+                      <MapPin className="h-4.5 w-4.5 text-zinc-400 shrink-0" />
+                      <span className={`text-xs font-semibold ${locationState ? 'text-zinc-850' : 'text-zinc-400'}`}>
+                        {locationState || "Select Your Connection State"}
+                      </span>
+                    </div>
+                    <ChevronDown className={`h-4 w-4 text-zinc-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isDropdownOpen && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-10" 
+                        onClick={() => setIsDropdownOpen(false)}
+                      />
+                      <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-zinc-200 shadow-xl rounded-xl z-20 overflow-hidden py-1 max-h-60 overflow-y-auto animate-fade-in divide-y divide-zinc-50">
+                        {nigerianStates.map((st) => (
+                          <button
+                            key={st}
+                            type="button"
+                            onClick={() => {
+                              setLocationState(st);
+                              setIsDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors duration-100 flex items-center justify-between ${
+                              locationState === st 
+                                ? 'bg-emerald-50 text-emerald-800' 
+                                : 'text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900'
+                            }`}
+                          >
+                            <span>{st}</span>
+                            {locationState === st && (
+                              <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -226,7 +276,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
                     </div>
                     <div>
                       <h4 className="text-xs font-black text-zinc-900 font-sans">Virtual Stream</h4>
-                      <p className="text-[10px] text-zinc-405 mt-0.5">Zoom Call &bull; Saturday, June 13</p>
+                      <p className="text-[10px] text-zinc-405 mt-0.5">Zoom or Google Meet &bull; {formatMediumDate(getFridayDate())}</p>
                     </div>
                   </button>
 
@@ -245,7 +295,7 @@ export default function RegistrationForm({ onSuccess, onCancel }: RegistrationFo
                     </div>
                     <div>
                       <h4 className="text-xs font-black text-zinc-900 font-sans">In-Person Class</h4>
-                      <p className="text-[10px] text-zinc-405 mt-0.5">Lagos Hub &bull; Sunday, June 14</p>
+                      <p className="text-[10px] text-zinc-405 mt-0.5">{formatMediumDate(getSaturdayDate())}</p>
                     </div>
                   </button>
                 </div>

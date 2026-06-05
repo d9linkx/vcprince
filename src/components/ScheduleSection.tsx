@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { Calendar, Monitor, Users, Check, Compass, Clock, FolderKanban, Linkedin, ExternalLink } from 'lucide-react';
+import {
+  getFridayDate,
+  getSaturdayDate,
+  formatLongDate
+} from '../lib/dates';
 
 export default function ScheduleSection() {
   const [selectedPath, setSelectedPath] = useState<'virtual' | 'physical'>('virtual');
@@ -9,7 +14,7 @@ export default function ScheduleSection() {
       title: "Virtual Learning Sandbox",
       cost: "₦1,000",
       originalCost: "₦100,000",
-      dateLabel: "Saturday, June 13, 2026",
+      dateLabel: formatLongDate(getFridayDate()),
       timeLabel: "10:00 AM - 1:00 PM (WAT / Nigeria Time)",
       location: "Interactive Zoom, Google Meet + WhatsApp Workspace",
       features: [
@@ -24,7 +29,7 @@ export default function ScheduleSection() {
       title: "Physical Hub Experience",
       cost: "₦1,000",
       originalCost: "₦100,000",
-      dateLabel: "Sunday, June 14, 2026",
+      dateLabel: formatLongDate(getSaturdayDate()),
       timeLabel: "2:00 PM - 5:00 PM (WAT / Nigeria Time)",
       location: "Sango Ibadan or the student's chosen comfortable location (home, etc)",
       features: [
@@ -215,7 +220,7 @@ export default function ScheduleSection() {
                   </div>
                   <div>
                     <h5 className="text-xs sm:text-sm font-bold text-zinc-450">Live Vibe Sandbox</h5>
-                    <p className="text-[11px] text-zinc-400 leading-relaxed mt-0.5">Begin your live session holds on {selectedPath === 'virtual' ? 'June 13' : 'June 14'}!</p>
+                    <p className="text-[11px] text-zinc-400 leading-relaxed mt-0.5">Begin your live session holds on {selectedPath === 'virtual' ? getFridayDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : getSaturdayDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}!</p>
                   </div>
                 </div>
               </div>
@@ -248,7 +253,6 @@ export default function ScheduleSection() {
                 COHORT DIRECTOR & LEAD MENTOR
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-zinc-950 mt-2.5 font-display">Prince Dike</h3>
-              <p className="text-xs text-zinc-400 font-bold block mt-0.5">CEO of Sabicrest &middot; Founder of PIDItasks</p>
             </div>
 
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light max-w-2xl">

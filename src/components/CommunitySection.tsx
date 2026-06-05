@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MessageSquare, Heart, Search, ChevronDown, ChevronUp, AlertCircle, Sparkles, HelpCircle, Sparkle } from 'lucide-react';
 import { ForumPost, FAQItem } from '../types';
+import { getFridayDate, getSaturdayDate } from '../lib/dates';
 
 export default function CommunitySection() {
   const [posts, setPosts] = useState<ForumPost[]>([
@@ -76,7 +77,7 @@ export default function CommunitySection() {
     {
       id: "faq5",
       question: "Where will the class happen virtually and physically?",
-      answer: "Virtual streaming holds on Zoom & Google Meet (Saturday, June 13). Physical cohort workshops meet in our Sango Ibadan hub or the student's comfortable chosen location (home, etc) (Sunday, June 14). Session recordings are shared fully.",
+      answer: `Virtual streaming holds on Zoom & Google Meet (${getFridayDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}). Physical cohort workshops meet in our Sango Ibadan hub or the student's comfortable chosen location (home, etc) (${getSaturdayDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}). Session recordings are shared fully.`,
       category: "Schedule"
     },
     {

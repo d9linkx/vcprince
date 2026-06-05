@@ -145,7 +145,7 @@ export default function MasterclassPage({ onBack, onEnrollMasterclass }: Masterc
 
               {/* Display Typography */}
               <h1 className="text-2xl lg:text-3xl xl:text-4xl font-extrabold tracking-tight text-zinc-950 leading-[1.15] font-display">
-                What If The Next <br /> <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Big App</span> Came From You?
+                What If The Next <span className="text-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">Big App</span> Came From You?
               </h1>
 
               <p className="max-w-xl text-xs lg:text-sm text-zinc-500 leading-relaxed font-sans font-light">

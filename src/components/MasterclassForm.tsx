@@ -17,11 +17,18 @@ import {
   Compass,
   MessageSquare,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  ChevronDown
 } from 'lucide-react';
 import { RegistrationDetails } from '../types';
 import ProgressStepper from './ProgressStepper';
 import { submitToSpreadsheet } from '../lib/sheets';
+import {
+  getFridayDate,
+  getSaturdayDate,
+  formatLongDate,
+  formatMediumDate
+} from '../lib/dates';
 
 interface MasterclassFormProps {
   onSuccess: (ticket: { id: string; details: RegistrationDetails & { projectIdea?: string }; date: string }) => void;
@@ -33,6 +40,7 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [locationState, setLocationState] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [projectIdea, setProjectIdea] = useState("");
   const [pathPreference, setPathPreference] = useState<'virtual' | 'physical'>('virtual');
   const [isLoading, setIsLoading] = useState(false);
@@ -80,8 +88,18 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
     };
 
     try {
-      // 1. Save locally to keep it extremely safe
+      // 1. Prevent repeat registrations of the same email address on this form
       const existing = JSON.parse(localStorage.getItem("vibe_registrations") || "[]");
+      const isAlreadyRegistered = existing.some(
+        (item: any) => item.email?.toLowerCase().trim() === email.toLowerCase().trim() && item.isMasterclass
+      );
+      if (isAlreadyRegistered) {
+        setSubmitError("You have already registered for this Masterclass using this email address!");
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. Save locally to keep it extremely safe
       existing.push({ id: ticketId, ...detailsPayload, isMasterclass: true });
       localStorage.setItem("vibe_registrations", JSON.stringify(existing));
 
@@ -94,7 +112,7 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
       onSuccess({
         id: ticketId,
         details: detailsPayload,
-        date: pathPreference === 'virtual' ? "Saturday, June 13, 2026" : "Sunday, June 14, 2026",
+        date: pathPreference === 'virtual' ? formatLongDate(getFridayDate()) : formatLongDate(getSaturdayDate()),
       });
 
     } catch (err: any) {
@@ -102,7 +120,7 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
       onSuccess({
         id: ticketId,
         details: detailsPayload,
-        date: pathPreference === 'virtual' ? "Saturday, June 13, 2026" : "Sunday, June 14, 2026",
+        date: pathPreference === 'virtual' ? formatLongDate(getFridayDate()) : formatLongDate(getSaturdayDate()),
       });
     } finally {
       setIsLoading(false);
@@ -317,19 +335,51 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
                 <label className="block text-xs font-bold text-zinc-800 uppercase tracking-wide select-none">
                   Your State or Location
                 </label>
-                <div className="relative flex items-center bg-zinc-50/40 hover:bg-zinc-50/90 border border-zinc-200 rounded-xl px-3.5 focus-within:bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-50 transition-all duration-150">
-                  <MapPin className="h-4.5 w-4.5 text-zinc-400 shrink-0" />
-                  <select
-                    value={locationState}
-                    onChange={(e) => setLocationState(e.target.value)}
-                    className="w-full text-xs font-semibold py-3.5 pl-2.5 outline-none bg-transparent font-sans text-zinc-800 cursor-pointer text-zinc-800"
-                    required
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full flex items-center justify-between bg-zinc-50/40 hover:bg-zinc-50/90 border border-zinc-200 rounded-xl px-3.5 py-3.5 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-50 transition-all duration-150 cursor-pointer text-left"
                   >
-                    <option value="" disabled>-- Select location --</option>
-                    {nigerianStates.map((st) => (
-                      <option key={st} value={st}>{st}</option>
-                    ))}
-                  </select>
+                    <div className="flex items-center gap-2.5">
+                      <MapPin className="h-4.5 w-4.5 text-zinc-400 shrink-0" />
+                      <span className={`text-xs font-semibold ${locationState ? 'text-zinc-850' : 'text-zinc-400'}`}>
+                        {locationState || "Select Your Connection State"}
+                      </span>
+                    </div>
+                    <ChevronDown className={`h-4 w-4 text-zinc-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isDropdownOpen && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-10" 
+                        onClick={() => setIsDropdownOpen(false)}
+                      />
+                      <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-zinc-200 shadow-xl rounded-xl z-20 overflow-hidden py-1 max-h-60 overflow-y-auto animate-fade-in divide-y divide-zinc-50">
+                        {nigerianStates.map((st) => (
+                          <button
+                            key={st}
+                            type="button"
+                            onClick={() => {
+                              setLocationState(st);
+                              setIsDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors duration-100 flex items-center justify-between ${
+                              locationState === st 
+                                ? 'bg-emerald-50 text-emerald-800' 
+                                : 'text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900'
+                            }`}
+                          >
+                            <span>{st}</span>
+                            {locationState === st && (
+                              <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -375,7 +425,7 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
                     </div>
                     <div>
                       <h4 className="text-xs font-extrabold text-zinc-900 font-sans">Virtual Stream</h4>
-                      <p className="text-[10px] text-zinc-400 font-mono font-medium">Zoom Class &bull; Sat, June 13</p>
+                      <p className="text-[10px] text-zinc-400 font-mono font-medium">Zoom or Google Meet &bull; {formatMediumDate(getFridayDate(), true)}</p>
                     </div>
                   </button>
 
@@ -394,7 +444,7 @@ export default function MasterclassForm({ onSuccess, onCancel }: MasterclassForm
                     </div>
                     <div>
                       <h4 className="text-xs font-extrabold text-zinc-900 font-sans">In-Person Class</h4>
-                      <p className="text-[10px] text-zinc-400 font-mono font-medium">Lagos Hub &bull; Sun, June 14</p>
+                      <p className="text-[10px] text-zinc-400 font-mono font-medium">{formatMediumDate(getSaturdayDate(), true)}</p>
                     </div>
                   </button>
                 </div>

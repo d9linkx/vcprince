@@ -8,6 +8,7 @@ import MasterclassPage from './components/MasterclassPage';
 import MasterclassForm from './components/MasterclassForm';
 import { Terminal, Shield, Activity, Star } from 'lucide-react';
 import { RegistrationDetails } from './types';
+import { getCohortMonthYearString } from './lib/dates';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'register' | 'success' | 'masterclass' | 'masterclass_register'>('landing');
@@ -100,7 +101,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-700">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Cohort June 2026
+              Cohort {getCohortMonthYearString()}
             </span>
             {currentView !== 'register' && currentView !== 'success' && currentView !== 'masterclass' && currentView !== 'masterclass_register' ? (
               <button 
