@@ -264,7 +264,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
             <div className="bg-gradient-to-b from-zinc-900 to-zinc-950 text-white border border-zinc-800 rounded-2xl p-4 text-left flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.08)] relative overflow-hidden h-full">
               <div className="absolute top-0 right-0 bg-emerald-700 text-white text-[7px] tracking-wider uppercase font-mono px-2 py-0.5 font-bold rounded-bl flex items-center gap-1 border-l border-b border-emerald-500 z-10">
                 <Star className="h-1.5 w-1.5 fill-current text-white animate-pulse" />
-                <span>Mentorship</span>
+                <span>+ Mentorship</span>
               </div>
               
               <div className="space-y-2">
@@ -277,7 +277,7 @@ export default function HeroSection({ onEnroll, onEnrollMasterclass }: HeroSecti
                 </div>
                 <h3 className="text-sm font-bold text-white font-display">1-on-1 Guidance</h3>
                 <p className="text-[10.5px] text-zinc-400 leading-snug font-sans font-light">
-                  Get full step-by-step guidance and daily chats with Prince Dike to build the exact website or App idea you have in mind!
+                  Get full step-by-step guidance and daily chats with Prince Dike as you build the exact website or App idea you have in mind, from scratch.
                 </p>
               </div>
               
